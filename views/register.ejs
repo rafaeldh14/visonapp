@@ -12,21 +12,43 @@
     <h1>Registro de usuario</h1>
     <form action="register" method="post">
 
-        <label for="user">Razon social</label>
-        <input type="text" name="user" required>
+        <div class="input_container">
+            <label class="label_style" for="razonsocial">Razon social</label>
+            <input type="text" name="razonsocial" id="razonsocial" class="input_style" required>
+        </div>
 
-        <label for="name">name</label>
-        <input type="text" name="name" required>
+        <div class="input_container">
+            <label class="label_style" for="nit">NIT</label>
+            <input type="number" name="nit" id="nit" class="input_style" required>
+        </div>
 
-        <label for="rol">rol</label>
-        <input type="text" name="rol" required>
+        <div class="input_container">
+            <label class="label_style" for="email">Email</label>
+            <input type="email" name="email" id="email" class="input_style" required>
+        </div>
 
-        <label for="pass">Password</label>
-        <input type="password" name="pass" required>
+        <div class="input_container">
+            <label class="label_style" for="pass">Contraseña</label>
+            <input type="password" name="pass" id="pass" class="input_style" required>
+        </div>
+
+        <div class="input_container">
+            <label class="label_style" for="direccion">Dirección</label>
+            <input type="text" name="direccion" id="direccion" class="input_style" required>
+        </div>
+        
+        <div class="input_container">
+            <label class="label_style" for="telefono">Telefono</label>
+            <input type="number" name="telefono" id="telefono" class="input_style" required>
+        </div>
+
+        <div class="input_container">
+            <label class="label_style" for="encargado">Encargado / Representante</label>
+            <input type="text" name="encargado" id="encargado" class="input_style" required>
+        </div>
 
 
-
-        <div style="display: inline;">
+        <div style="display: inline;"> 
             <a href="/" class="btn-cancel">Cancelar</a> <input type="submit" class="btn-save" value="Registrar">
         </div>
     </form>

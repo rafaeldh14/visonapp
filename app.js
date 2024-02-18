@@ -46,11 +46,11 @@ app.get('/register', (req, res) => {
 // Controlador de registro de usuario
 app.post('/register', async (req, res) => {
     try {
-        const { user, name, rol, pass } = req.body;
+        const { nit, razonsocial, direccion, telefono, email, pass, encargado } = req.body;
         const passHash = await bcryptjs.hash(pass, 8);
 
-        const checkUserQuery = "SELECT * FROM users WHERE user = ?";
-        const existingUser = await queryDatabase(checkUserQuery, [user]);
+        const checkUserQuery = "SELECT * FROM user WHERE nit_user = ?";
+        const existingUser = await queryDatabase(checkUserQuery, [nit]);
 
         if (existingUser.length > 0) {
             return res.render('register', {
@@ -64,8 +64,8 @@ app.post('/register', async (req, res) => {
             });
         }
 
-        const insertUserQuery = 'INSERT INTO users SET ?';
-        await queryDatabase(insertUserQuery, { user, name, rol, pass: passHash });
+        const insertUserQuery = 'INSERT INTO user SET ?';
+        await queryDatabase(insertUserQuery, { nit_user: nit, razonsocial_user: razonsocial, direccion_user: direccion, telefono_user: telefono, email_user: email, pass_user: passHash, encargado_user: encargado });
 
         res.render('register', {
             alert: true,
