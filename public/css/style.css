@@ -1,0 +1,187 @@
+body {
+    background-color: #c6c2db;
+    font-family: Arial, sans-serif;
+    margin: auto;
+    padding: 0;
+    text-align: center;
+}
+
+.login-form,
+.contenedor {
+    background-color: #e9efa0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    margin: 10% auto;
+    padding: 20px 20px 20px 20px;
+    width: 300px;
+}
+
+.login-form h1 {
+    text-align: center;
+    color: #4d4d4d;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding: 70px 0 10px 0;
+}
+
+.login-form input[type="password"],
+.login-form input[type="text"] {
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    margin: 10px 0 10px 0;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-login {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    font-size: large;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.btn-login:hover,
+.btn-login:active {
+    background-color: #2e6831;
+    border-color: aqua;
+    color: azure;
+}
+
+.btn-login:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-register {
+    background-color: #4c60af;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    font-size: large;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin-top: 20px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+}
+
+.btn-register:hover,
+.btn-register:active {
+    background-color: #2e3b68;
+    border-color: aqua;
+    color: azure;
+}
+
+.btn-register:focus {
+    box-shadow: 0 0 0 0.2rem rgba(183, 0, 255, 0.5);
+}
+
+.register-form {
+    background-color: #e9efa0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    margin: 10% auto;
+    padding: 20px 20px 20px 20px;
+    width: 500px;
+}
+
+.btn-save {
+    background-color: #4c60af;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px;
+    width: 40%;
+    font-size: large;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin-top: 20px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+}
+
+.btn-save:hover,
+.btn-save:active {
+    background-color: #2e3b68;
+    border-color: aqua;
+    color: azure;
+}
+
+.btn-save:focus {
+    box-shadow: 0 0 0 0.2rem rgba(183, 0, 255, 0.5);
+}
+
+.btn-cancel {
+    background-color: #af724c;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px;
+    width: 40%;
+    font-size: large;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin-top: 20px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+}
+
+.btn-cancel:hover,
+.btn-cancel:active {
+    background-color: #b0291c;
+    border-color: aqua;
+    color: azure;
+}
+
+.btn-cancel:focus {
+    box-shadow: 0 0 0 0.2rem rgba(183, 0, 255, 0.5);
+}
+
+.register-form,
+.contenedor {
+    background-color: #e9efa0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    margin: 10% auto;
+    padding: 20px 20px 20px 20px;
+    width: 500px;
+}
+
+.register-form h1 {
+    text-align: center;
+    color: #4d4d4d;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding: 30px 0 10px 0;
+}
+
+.register-form input[type="password"],
+.register-form input[type="text"] {
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    margin: 10px 0 10px 0;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
