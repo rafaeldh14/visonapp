@@ -96,6 +96,7 @@ body {
         & .news_container {
             flex-direction: column;
             display: flex;
+            color: azure;
             width: 100%;
             gap: 40px;
 
@@ -329,7 +330,6 @@ footer {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     margin: 10% auto;
     padding: 20px 20px 20px 20px;
-    width: 500px;
 }
 
 .btn-save {
@@ -340,7 +340,7 @@ footer {
     cursor: pointer;
     margin: 10px 0;
     padding: 10px;
-    width: 40%;
+    width: 45%;
     font-size: large;
     font-weight: bold;
     font-family: 'JetBrains Mono';
@@ -350,6 +350,8 @@ footer {
     -moz-appearance: button;
     appearance: button;
     text-decoration: none;
+    text-align: center;
+
 }
 
 .btn-save:hover,
@@ -371,7 +373,7 @@ footer {
     cursor: pointer;
     margin: 10px 0;
     padding: 10px;
-    width: 40%;
+    width: 45%;
     font-size: large;
     font-weight: bold;
     font-family: 'JetBrains Mono';
@@ -381,6 +383,8 @@ footer {
     -moz-appearance: button;
     appearance: button;
     text-decoration: none;
+    text-align: center;
+
 }
 
 .btn-cancel:hover,
@@ -406,8 +410,9 @@ footer {
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     margin: 10% auto;
+    margin-top: 50px;
     padding: 20px 20px 20px 20px;
-    width: 500px;
+    width: 600px;
 }
 
 .register-form h1 {
@@ -440,8 +445,6 @@ footer {
     width: 100%;
     box-sizing: border-box;
 }
-
-
 
 .header_login {
     width: 100%;

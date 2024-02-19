@@ -13,21 +13,14 @@
 
     <header class="header_login">
         <div class="header_content_login">
-          <h3>Vision App</h3>
+          <a href="/"><h3>Vision App</h3></a>
           <nav>
             <ul>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="/bitacora">Bitacora</a></li>
-                <li><a href="/register">Registro</a></li>
-                <li><a href="/chat">Chat</a></li>
-
-                <% if (logb) { %>
-                    <h6>Bienvenido <%= name %></h6>
-                    <li><a href="/logout">Cerrar sesión</a></li>
-                <% } else { %>
-                    <li><a href="/login">Iniciar sesión</a></li>
-                <% } %>
+                <li><a href="/chat">ChatAi</a></li>
+                <li><a href="/register">Registrar Usuario</a></li>
+                
             </ul>
           </nav>
           <h3><a href="">Work With Us</a></h3>
@@ -64,6 +57,14 @@
         </script>
     <% } %>
     
+    <footer>
+      <p>
+        &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
+        Producción SAS
+      </p>
+      <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
+    </footer>
+
 </div>
 </body>
 </html>

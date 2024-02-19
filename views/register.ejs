@@ -3,14 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/style_index.css">
     <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
     <title>Register</title>
 </head>
 <body>
+
+    <header class="header_login">
+        <div class="header_content_login">
+          <a href="/"><h3>Vision App</h3></a>
+          <nav>
+            <ul>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="/chat">Chat</a></li>
+
+                <% if (logb) { %>
+                    <h6>Bienvenido <%= name %></h6>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                <% } else { %>
+                    <li><a href="/login">Iniciar sesión</a></li>
+                <% } %>
+            </ul>
+          </nav>
+          <h3><a href="">Work With Us</a></h3>
+        </div>
+      </header>
     
     <div class="register-form">
     <h1>Registro de usuario</h1>
+
     <form action="register" method="post">
 
         <div class="input_container">
@@ -49,10 +71,11 @@
         </div>
 
 
-        <div style="display: inline;"> 
+        <div style="display: flex; width: 100%; justify-content: center;"> 
             <a href="/" class="btn-cancel">Cancelar</a> <input type="submit" class="btn-save" value="Registrar">
         </div>
     </form>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -69,5 +92,14 @@
             });
         </script>
     <% } %>
+
+    <footer>
+      <p>
+        &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
+        Producción SAS
+      </p>
+      <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
+    </footer>
+
 </body>
 </html>
