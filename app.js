@@ -31,13 +31,35 @@ const connection = require('./database/db');
 
 // Ruta de inicio de sesión
 app.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', {
+        logb: false,
+        name: 'Debe iniciar sesión'
+    });
 });
 
 // Ruta de registro de usuario
 app.get('/register', (req, res) => {
-    res.render('register');
+    res.render('register', {
+        logb: false,
+        name: 'Debe iniciar sesión'
+    });
 });
+
+app.get('/chat', (req, res) => {
+    res.render('chat', {
+        logb: false,
+        name: 'Debe iniciar sesión'
+    });
+}
+);
+
+app.get('/servicio', (req, res) => {
+    res.render('servicio', {
+        logb: false,
+        name: 'Debe iniciar sesión'
+    });
+}
+);
 
 // Controlador de registro de usuario
 app.post('/register', async (req, res) => {
@@ -148,4 +170,11 @@ app.get('/', (req, res) => {
             name: 'Debe iniciar sesión'
         });
     }
+});
+
+// Cerrar sesión
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
 });

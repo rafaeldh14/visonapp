@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/style_index.css" />
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <title>Servicio al cliente</title>
+</head>
+
+<body>
+   <div class="body_content">
+      <header>
+        <div class="header_content">
+          <h3>Vision App</h3>
+          <nav>
+            <ul>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="/bitacora">Bitacora</a></li>
+                <li><a href="/register">Registro</a></li>
+                <li><a href="/chat">Chat</a></li>
+
+                <% if (logb) { %>
+                    <h6>Bienvenido <%= name %></h6>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                <% } else { %>
+                    <li><a href="/login">Iniciar sesión</a></li>
+                <% } %>
+            </ul>
+          </nav>
+          <h3><a href="">Work With Us</a></h3>
+        </div>
+      </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Bienvenido al Servicio al Cliente</h1>
+                <p>Estamos aquí para ayudarte. ¿En qué podemos ayudarte hoy?</p>
+            </div>
+        </section>
+
+        <section class="faq">
+            <div class="container">
+                <h2>Preguntas Frecuentes</h2>
+                <div class="faq-item">
+                    <h3>¿Cómo puedo contactar al servicio al cliente?</h3>
+                    <p>Puedes contactarnos por teléfono al XXX-XXX-XXXX o por correo electrónico a servicio@ejemplo.com.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>¿Cuáles son sus horarios de atención?</h3>
+                    <p>Nuestro servicio al cliente está disponible de lunes a viernes de 9:00 a 17:00.</p>
+                </div>
+                <!-- Agrega más preguntas frecuentes según sea necesario -->
+            </div>
+        </section>
+
+        <section class="contact">
+            <div class="container">
+                <h2>Contacto</h2>
+                <p>¿Tienes una pregunta que no está respondida en nuestras preguntas frecuentes? ¡Contáctanos!</p>
+                <form action="/enviar" method="POST">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                    <button type="submit">Enviar mensaje</button>
+                </form>
+            </div>
+        </section>
+    </main>
+   </div>
+    <footer>
+      <p>
+        &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
+        Producción SAS
+      </p>
+      <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
+    </footer>
+</body>
+</html>

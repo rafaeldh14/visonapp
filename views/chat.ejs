@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/style_index.css">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <title>Vision AiChat</title>
+</head>
+
+<body>
+
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <h1>Vision AiChat</h1>
+        </div>
+        <div class="chatbot-body">
+            <div id="chatbot"></div>
+        </div>
+    </div>
+
+<div class="body_content">
+
+      <header>
+        <div class="header_content">
+          <h3>Vision App</h3>
+          <nav>
+            <ul>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="/bitacora">Bitacora</a></li>
+                <li><a href="/register">Registro</a></li>
+                <li><a href="/chat">Chat</a></li>
+
+                <% if (logb) { %>
+                    <h6>Bienvenido <%= name %></h6>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                <% } else { %>
+                    <li><a href="/login">Iniciar sesión</a></li>
+                <% } %>
+            </ul>
+          </nav>
+          <h3><a href="">Work With Us</a></h3>
+        </div>
+      </header>
+
+    
+
+    <iframe
+    src="https://www.chatbase.co/chatbot-iframe/9X4yaVpsNedi0DjWQV3LZ"
+    width="70%"
+    style="height: 90%; min-height: 700px"
+    frameborder="0"
+    ></iframe>
+
+    
+    <script>
+    window.embeddedChatbotConfig = {
+    chatbotId: "9X4yaVpsNedi0DjWQV3LZ",
+    domain: "www.chatbase.co"
+    }
+    </script>
+    <script
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="9X4yaVpsNedi0DjWQV3LZ"
+    domain="www.chatbase.co"
+    defer>
+    </script>
+</div>
+
+    <footer>
+      <p>
+        &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
+        Producción SAS
+      </p>
+      <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
+    </footer>
+</body>
+</html>

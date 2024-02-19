@@ -1,6 +1,12 @@
 body {
-    background-color: #c6c2db;
-    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg,
+            rgb(34, 45, 91),
+            rgb(46, 33, 98),
+            rgb(40, 80, 120),
+            rgb(18, 19, 44),
+            rgb(28 28 67));
+    color: #fff;
+    font-family: 'JetBrains Mono';
     margin: auto;
     padding: 0;
     text-align: center;
@@ -8,7 +14,13 @@ body {
 
 .login-form,
 .contenedor {
-    background-color: #e9efa0;
+    background: linear-gradient(45deg,
+            rgb(44 44 119),
+            rgb(39 39 102),
+            rgb(40 46 120),
+            rgb(37 39 96),
+            rgb(28 28 67));
+    color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     margin: 10% auto;
@@ -45,7 +57,13 @@ body {
     width: 100%;
     font-size: large;
     font-weight: bold;
+    font-family: 'JetBrains Mono';
     box-sizing: border-box;
+    margin-top: 20px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
 }
 
 .btn-login:hover,
@@ -70,6 +88,7 @@ body {
     width: 100%;
     font-size: large;
     font-weight: bold;
+    font-family: 'JetBrains Mono';
     box-sizing: border-box;
     margin-top: 20px;
     -webkit-appearance: button;
@@ -90,7 +109,13 @@ body {
 }
 
 .register-form {
-    background-color: #e9efa0;
+    background: linear-gradient(45deg,
+            rgb(44 44 119),
+            rgb(39 39 102),
+            rgb(40 46 120),
+            rgb(37 39 96),
+            rgb(28 28 67));
+    color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     margin: 10% auto;
@@ -109,6 +134,7 @@ body {
     width: 40%;
     font-size: large;
     font-weight: bold;
+    font-family: 'JetBrains Mono';
     box-sizing: border-box;
     margin-top: 20px;
     -webkit-appearance: button;
@@ -139,6 +165,7 @@ body {
     width: 40%;
     font-size: large;
     font-weight: bold;
+    font-family: 'JetBrains Mono';
     box-sizing: border-box;
     margin-top: 20px;
     -webkit-appearance: button;
@@ -160,7 +187,13 @@ body {
 
 .register-form,
 .contenedor {
-    background-color: #e9efa0;
+    background: linear-gradient(45deg,
+            rgb(44 44 119),
+            rgb(39 39 102),
+            rgb(40 46 120),
+            rgb(37 39 96),
+            rgb(28 28 67));
+    color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     margin: 10% auto;
@@ -170,7 +203,7 @@ body {
 
 .register-form h1 {
     text-align: center;
-    color: #4d4d4d;
+    color: #abd0ef;
     font-size: 24px;
     margin-bottom: 20px;
     padding: 30px 0 10px 0;

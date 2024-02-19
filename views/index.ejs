@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Vision App</title>
     <link rel="stylesheet" href="resources/css/style_index.css" />
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
   </head>
   <body>
+
     <div class="body_content">
       <header>
         <div class="header_content">
@@ -17,6 +19,7 @@
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="/bitacora">Bitacora</a></li>
                 <li><a href="/register">Registro</a></li>
+                <li><a href="/chat">Chat</a></li>
 
                 <% if (logb) { %>
                     <h6>Bienvenido <%= name %></h6>
@@ -41,8 +44,8 @@
             <li class="li_item"><a href="">TUS ESTADISTICAS</a></li>
             <li class="li_item"><a href="">INFORMES</a></li>
             <li class="li_item"><a href="">PROGRAMAR CITAS</a></li>
-            <li class="li_item"><a href="">SERVICIO AL CLIENTE</a></li>
-            <li class="li_item"><a href="">VISION AI.CHAT</a></li>
+            <li class="li_item"><a href="/servicio">SERVICIO AL CLIENTE</a></li>
+            <li class="li_item"><a href="/chat">VISION AI.CHAT</a></li>
           </ul>
         </nav>
       </section>

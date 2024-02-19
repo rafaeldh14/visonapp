@@ -3,13 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/style_index.css">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
     <title>Login</title>
-    <link rel="stylesheet" href="resources/css/style.css">
 </head>
+
 <body>
-    <h1>Login de usuario</h1>
+    <div class="body_content"></div>
+
+    <header class="header_login">
+        <div class="header_content_login">
+          <h3>Vision App</h3>
+          <nav>
+            <ul>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="/bitacora">Bitacora</a></li>
+                <li><a href="/register">Registro</a></li>
+                <li><a href="/chat">Chat</a></li>
+
+                <% if (logb) { %>
+                    <h6>Bienvenido <%= name %></h6>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                <% } else { %>
+                    <li><a href="/login">Iniciar sesión</a></li>
+                <% } %>
+            </ul>
+          </nav>
+          <h3><a href="">Work With Us</a></h3>
+        </div>
+      </header>
+    
+
     <div class="login-form">
-    <h2>Login</h2>
+    <h2>Iniciar Sesión</h2>
     <form action="/auth" method="post">
 
         <input type="text" name="nit"  id="nit" placeholder="NIT" required>
@@ -18,7 +45,7 @@
 
         <input type="submit" class="btn-login" value="Iniciar Sesión">
     </form>
-    <a href="register" class="btn-register"> Register </a>
+    <a href="register" class="btn-register"> Registrar usuario </a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -36,6 +63,7 @@
             });
         </script>
     <% } %>
-
+    
+</div>
 </body>
 </html>
