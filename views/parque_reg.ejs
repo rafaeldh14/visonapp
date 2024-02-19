@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <title>Registro de Parques</title>
+</head>
+<body>
+    
+    <div class="register-form">
+    <h1>Registrar parque</h1>
+    <form action="parque_reg" method="post">
+
+        <div class="input_container">
+            <label class="label_style" for="razonsocial">Razon social</label>
+            <input type="text" name="razonsocial" id="razonsocial" class="input_style" required>
+        </div>
+
+        <div class="input_container">
+            <label class="label_style" for="nit">NIT</label>
+            <input type="number" name="nit" id="nit" class="input_style" required>
+        </div>
+
+        <div class="input_container">
+            <label class="label_style" for="email">Email</label>
+            <input type="email" name="email" id="email" class="input_style" required>
+        </div>
+
+        <div class="input_container">
+            <label class="label_style" for="pass">Contraseña</label>
+            <input type="password" name="pass" id="pass" class="input_style" required>
+        </div>
+
+        <div class="input_container">
+            <label class="label_style" for="direccion">Dirección</label>
+            <input type="text" name="direccion" id="direccion" class="input_style" required>
+        </div>
+        
+        <div class="input_container">
+            <label class="label_style" for="telefono">Telefono</label>
+            <input type="number" name="telefono" id="telefono" class="input_style" required>
+        </div>
+
+        <div class="input_container">
+            <label class="label_style" for="encargado">Encargado / Representante</label>
+            <input type="text" name="encargado" id="encargado" class="input_style" required>
+        </div>
+
+
+        <div style="display: inline;"> 
+            <a href="/" class="btn-cancel">Cancelar</a> <input type="submit" class="btn-save" value="Registrar parque">
+        </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <% if(typeof alert != "undefined") { %>
+        <script>
+            Swal.fire({
+                icon: '<%= alertIcon %>',
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                showConfirmButton: '<%= showConfirmButton %>',
+                timer: '<%= timer %>',
+            }).then(() => {
+                    window.location = '/ <%= ruta %>';
+            });
+        </script>
+    <% } %>
+</body>
+</html>

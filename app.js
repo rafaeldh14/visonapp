@@ -28,10 +28,6 @@ app.use(session({
 // Conexión a la base de datos
 const connection = require('./database/db');
 
-// Ruta de inicio
-app.get('/', (req, res) => {
-    res.render('index', { msg: 'Bienvenido' });
-});
 
 // Ruta de inicio de sesión
 app.get('/login', (req, res) => {
@@ -100,11 +96,56 @@ app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
 
+// Ruta de inicio de sesión
+app.post('/auth', async (req, res) => {
+    try {
+        const { nit, pass } = req.body;
+        let passHash = await bcryptjs.hash(pass, 8);
 
-// const razonsocial_user = req.body.razonsocial;
-// const nit_user = req.body.nit;
-// const pass_user = req.body.pass;
-// const email_user = req.body.email;
-// const direccion_user = req.body.direccion;
-// const telefono_user = req.body.telefono;
-// const encargado_user = req.body.encargado;
+        const checkUserQuery = "SELECT * FROM user WHERE nit_user = ?";
+        const user = await queryDatabase(checkUserQuery, [nit]);
+
+        if (user.length === 0 || !(await bcryptjs.compare(pass, user[0].pass_user))) {
+            res.render('login', {
+                alert: true,
+                alertTitle: "Error",
+                alertMessage: "¡Usuario y/o contraseña incorrectos!",
+                alertIcon: "error",
+                showConfirmButton: true,
+                timer: null,
+                ruta: 'login'
+            });
+        } else {
+            req.session.loggedin = true;
+            req.session.nit = nit;
+            req.session.razonsocial = user[0].razonsocial_user;
+            res.render('login', {
+                alert: true,
+                alertTitle: "Conexión",
+                alertMessage: "¡Conexión exitosa!",
+                alertIcon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+                ruta: ''
+            });
+        }
+    } catch (error) {
+        console.error("Error en la autenticación:", error);
+        res.status(500).send("Error en el servidor");
+    }
+});
+
+// autenticación de usuario
+app.get('/', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('index', {
+            logb: true,
+            name: req.session.razonsocial
+        });
+    } else {
+        res.render('index', {
+            logb: false,
+            name: 'Debe iniciar sesión'
+        });
+    }
+});
