@@ -17,18 +17,15 @@
             <ul>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="/bitacora">Bitacora</a></li>
                 <li><a href="/chat">ChatAi</a></li>
-                
-                
-                <% if (logb) { %>
-                    <h6>Bienvenido <%= name %></h6>
-                    <li><a href="/logout">Cerrar sesión</a></li>
-                <% } else { %>
-                    <li><a href="/login">LogIn/SignIn</a></li>
-                <% } %>
             </ul>
           </nav>
+          <% if (logb) { %>
+                    <h6 class="bienvenido">Bienvenido <%= name %></h6>
+                    <nav><li class="cerrar"><a href="/logout">Cerrar sesión</a></li></nav>
+                <% } else { %>
+                    <nav><li class="cerrar"><a href="/login">LogIn/SignIn</a></li></nav>
+            <% } %>
           <h3><a href="">Work With Us</a></h3>
         </div>
       </header>
@@ -39,11 +36,11 @@
       <section class="nav_bar">
         <nav>
           <ul>
-            <li class="li_item"><a href="">HOME</a></li>
-            <li class="li_item"><a href="">PERFIL DEL PARQUE</a></li>
-            <li class="li_item"><a href="">TUS ESTADISTICAS</a></li>
-            <li class="li_item"><a href="">INFORMES</a></li>
-            <li class="li_item"><a href="">PROGRAMAR CITAS</a></li>
+            <li class="li_item"><a href="/">HOME</a></li>
+            <li class="li_item"><a href="/parque">PERFIL DEL PARQUE</a></li>
+            <li class="li_item"><a href="/estadisticas">TUS ESTADISTICAS</a></li>
+            <li class="li_item"><a href="/informes">INFORMES</a></li>
+            <li class="li_item"><a href="/citas">PROGRAMAR CITAS</a></li>
             <li class="li_item"><a href="/servicio">SERVICIO AL CLIENTE</a></li>
             <li class="li_item"><a href="/chat">VISION AI.CHAT</a></li>
           </ul>

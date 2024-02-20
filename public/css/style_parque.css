@@ -1,0 +1,59 @@
+/* Estilos para la tabla */
+
+body {
+    background: linear-gradient(45deg,
+            rgb(34, 45, 91),
+            rgb(46, 33, 98),
+            rgb(40, 80, 120),
+            rgb(18, 19, 44),
+            rgb(28 28 67));
+    color: #fff;
+    font-family: 'JetBrains Mono';
+    margin: auto;
+    padding: 0;
+    text-align: center;
+}
+
+/* Estilos para el contenedor de la tabla */
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Tamaño completo de la pantalla */
+}
+
+/* Estilos para la tabla */
+table {
+    width: 90%;
+    /* Ancho relativo al contenedor */
+    max-width: 800px;
+    /* Máximo ancho */
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    /* Bordes sutiles */
+}
+
+/* Estilos para las celdas de la tabla */
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilos para la fila de encabezado */
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+/* Estilos para filas impares */
+tr:nth-child(odd) {
+    background-color: #3e21b477;
+}
+
+/* Estilos para filas al pasar el mouse */
+tr:hover {
+    background-color: #239a8e7a;
+}

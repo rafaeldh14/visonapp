@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/style_parque.css">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <title>Usuarios</title>
+</head>
+<body>
+    <h1>Parques</h1>
+    <form action="/agregar-parque" method="post">
+    <h2>Agregar Parque</h2>
+    <label for="nombre_parque">Nombre:</label>
+    <input type="text" id="nombre_parque" name="nombre_parque" required>
+    <br>
+    <label for="direccion_parque">Dirección:</label>
+    <input type="text" id="direccion_parque" name="direccion_parque" required>
+    <br>
+    <label for="telefono_parque">Teléfono:</label>
+    <input type="text" id="telefono_parque" name="telefono_parque">
+    <br>
+    <label for="eficiencia_parque">Eficiencia:</label>
+    <input type="text" id="eficiencia_parque" name="eficiencia_parque">
+    <br>
+    <label for="area_parque">Área:</label>
+    <input type="text" id="area_parque" name="area_parque">
+    <br>
+    <label for="capacidad_parque">Capacidad:</label>
+    <input type="text" id="capacidad_parque" name="capacidad_parque">
+    <br>
+    <label for="ob_parque">Observaciones:</label>
+    <textarea id="ob_parque" name="ob_parque"></textarea>
+    <br>
+    <button type="submit">Agregar Parque</button>
+    </form>
+
+    <h2>Lista de Parques</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Eficiencia</th>
+            <th>Área</th>
+            <th>Capacidad</th>
+            <th>Observaciones</th>
+        </tr>
+        <% parques.forEach(parque => { %>
+            <tr>
+                <td><%= parque.id_parque %></td>
+                <td><%= parque.nombre_parque %></td>
+                <td><%= parque.direccion_parque %></td>
+                <td><%= parque.telefono_parque %></td>
+                <td><%= parque.eficiencia_parque %></td>
+                <td><%= parque.area_parque %></td>
+                <td><%= parque.capacidad_parque %></td>
+                <td><%= parque.ob_parque %></td>
+            </tr>
+        <% }); %>
+    </table>
+</body>
+</html>

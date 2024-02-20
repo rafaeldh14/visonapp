@@ -178,3 +178,46 @@ app.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
+
+// app.get('/parque', async (req, res) => {
+//     try {
+//         const loggedinNit = req.session.nit; // Obtener el NIT del usuario logueado
+//         const loggedinUserQuery = "SELECT * FROM user WHERE nit_user = ?";
+//         const loggedinUser = await queryDatabase(loggedinUserQuery, [loggedinNit]);
+
+//         res.render('parque', { loggedinUser });
+//     } catch (error) {
+//         console.error("Error al recuperar usuario logueado:", error);
+//         res.status(500).send("Error en el servidor");
+//     }
+// });
+
+
+// Ruta para agregar parques
+app.post('/agregar-parque', async (req, res) => {
+    try {
+        const { nombre_parque, direccion_parque, telefono_parque, eficiencia_parque, area_parque, capacidad_parque, ob_parque } = req.body;
+        const nit_user_parque = req.session.nit;
+
+        const insertParqueQuery = 'INSERT INTO parques (nit_user_parque, nombre_parque, direccion_parque, telefono_parque, eficiencia_parque, area_parque, capacidad_parque, ob_parque) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        await queryDatabase(insertParqueQuery, [nit_user_parque, nombre_parque, direccion_parque, telefono_parque, eficiencia_parque, area_parque, capacidad_parque, ob_parque]);
+
+        res.redirect('/parque');
+    } catch (error) {
+        console.error("Error al agregar parque:", error);
+        res.status(500).send("Error en el servidor");
+    }
+});
+
+app.get('/parque', async (req, res) => {
+    try {
+        const nit_user_parque = req.session.nit;
+        const getParquesQuery = "SELECT * FROM parques WHERE nit_user_parque = ?";
+        const parques = await queryDatabase(getParquesQuery, [nit_user_parque]);
+
+        res.render('parque', { parques });
+    } catch (error) {
+        console.error("Error al recuperar parques:", error);
+        res.status(500).send("Error en el servidor");
+    }
+});

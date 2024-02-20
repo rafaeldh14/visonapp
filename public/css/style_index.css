@@ -4,6 +4,25 @@
     margin: 0;
 }
 
+.bienvenido {
+    font-family: 'JetBrains Mono';
+    color: #fff !important;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+
+}
+
+.cerrar {
+    font-family: 'JetBrains Mono';
+    color: #fff !important;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+}
+
 body {
     font-family: 'JetBrains Mono';
     background: linear-gradient(45deg,
