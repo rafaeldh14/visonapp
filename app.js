@@ -33,6 +33,7 @@ const connection = require('./database/db');
 
 // Función para realizar consultas a la base de datos
 async function queryDatabase(sqlQuery, values) {
+
     return new Promise((resolve, reject) => {
         connection.query(sqlQuery, values, (err, rows) => {
             if (err) {
@@ -73,6 +74,8 @@ app.get('/servicio', (req, res) => {
         name: 'Debe iniciar sesión'
     });
 });
+
+
 
 app.get('/nuestros_servicios', (req, res) => {
     res.render('nuestros_servicios', {
@@ -216,13 +219,14 @@ app.get('/parque', async (req, res) => {
 
 // Función para obtener los eventos asociados a un parque específico
 
-async function obtenerEventosDelParque(id_del_parque) {
+async function obtenerEventosDelParque(id_del_parque, nit_user_evento) {
     try {
         // Construir la consulta SQL para obtener los eventos del parque
-        const getEventosQuery = 'SELECT * FROM evento WHERE id_parque_evento = ?';
+        //const getEventosQuery = 'SELECT * FROM evento WHERE id_parque_evento = ?';
+        const getEventosQuery = 'SELECT * FROM evento WHERE id_parque_evento = ? AND nit_user_evento = ?';
 
         // Ejecutar la consulta SQL
-        const eventos = await queryDatabase(getEventosQuery, [id_del_parque]);
+        const eventos = await queryDatabase(getEventosQuery, [id_del_parque, nit_user_evento]);
 
         // Devolver los eventos obtenidos
         return eventos;
@@ -232,22 +236,27 @@ async function obtenerEventosDelParque(id_del_parque) {
 }
 //-------------------------------------------------------------------------
 
-
+let eventosMaster = [];
 // Endpoint GET para mostrar la página de eventos del parque
 app.get('/eventos-parque/:id_parque', async (req, res) => {
 
     try {
         let id_del_parque = req.params.id_parque;
+        const nit_user_evento = req.session.nit;
+        console.log(id_del_parque);
+        console.log(nit_user_evento);
+
 
         // Verificar si id_del_parque está disponible; si no, buscar en la sesión
         if (!id_del_parque && req.session.id_del_parque) {
             id_del_parque = req.session.id_del_parque;
+
         } else if (!id_del_parque) {
             // Si no hay id_del_parque ni en la URL ni en la sesión, manejar el error
             return res.status(400).send("ID del parque es requerido.");
         }
 
-        const eventos = await obtenerEventosDelParque(id_del_parque);
+        const eventos = await obtenerEventosDelParque(id_del_parque, nit_user_evento);
 
         // Opcional: Limpieza de id_del_parque en la sesión después de usarlo
         // delete req.session.id_del_parque;
@@ -256,6 +265,8 @@ app.get('/eventos-parque/:id_parque', async (req, res) => {
             eventos: eventos,
             id_del_parque: id_del_parque
         });
+
+        eventosMaster = res.eventos;
 
     } catch (error) {
 
@@ -326,28 +337,22 @@ app.listen(port, () => {
 //-------------------------------------------------------------------------
 
 // Ruta para filtrar eventos
-app.post('/filtrar-eventos', async (req, res) => {
+app.get('/filtrar-eventos', async (req, res) => {
+
     try {
+        // Aquí debes recuperar los eventos del parque y renderizar la página eventos_parque.ejs
         const { filtro_id, filtro_fecha } = req.body;
+        console.log(filtro_id);
+
         const nit_user_evento = req.session.nit;
 
-        let getEventosQuery = "SELECT * FROM evento WHERE nit_user_evento = ?";
-
-        // Agregar condiciones de filtrado si se proporciona un ID de evento
-        if (filtro_id) {
-            getEventosQuery += " AND id_evento = ?";
-        }
-
-        // Agregar condiciones de filtrado si se proporciona una fecha de evento
-        if (filtro_fecha) {
-            getEventosQuery += " AND DATE(fecha_evento) = ?";
-        }
-
-        const eventos = await queryDatabase(getEventosQuery, [nit_user_evento, filtro_id, filtro_fecha]);
+        const getEventosQuery = "SELECT * FROM evento WHERE id_evento = ?";
+        const eventos = await queryDatabase(getEventosQuery, [filtro_id]);
 
         res.render('eventos_parque', { eventos });
+        console.log(eventos);
     } catch (error) {
-        console.error("Error al filtrar eventos:", error);
+        console.error("Error al recuperar eventos del parque:", error);
         res.status(500).send("Error en el servidor");
     }
 });

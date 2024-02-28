@@ -23,6 +23,14 @@
     letter-spacing: 0.0075em;
 }
 
+h3 {
+    font-size: 1.5em;
+    margin: 20px 0;
+    text-align: center;
+    color: #ddd;
+    font-weight: bold !important;
+}
+
 body {
     font-family: 'JetBrains Mono';
     padding-bottom: 100px;
@@ -116,7 +124,7 @@ body {
         & .news_container {
             flex-direction: column;
             display: flex;
-            color: azure;
+            color: rgb(49, 203, 203);
             width: 100%;
             gap: 40px;
 
