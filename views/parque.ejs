@@ -1,51 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/style_parque.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Parques</title>
+    <link rel="stylesheet" href="resources/css/style_parque.css" />
     <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
-    <title>Usuarios</title>
-</head>
-<body>
-    <h1>Parques</h1>
-    <form action="/agregar-parque" method="post">
-    <h2>Agregar Parque</h2>
-    <label for="nombre_parque">Nombre:</label>
-    <input type="text" id="nombre_parque" name="nombre_parque" required>
-    <br>
-    <label for="direccion_parque">Dirección:</label>
-    <input type="text" id="direccion_parque" name="direccion_parque" required>
-    <br>
-    <label for="telefono_parque">Teléfono:</label>
-    <input type="text" id="telefono_parque" name="telefono_parque">
-    <br>
-    <label for="eficiencia_parque">Eficiencia:</label>
-    <input type="text" id="eficiencia_parque" name="eficiencia_parque">
-    <br>
-    <label for="area_parque">Área:</label>
-    <input type="text" id="area_parque" name="area_parque">
-    <br>
-    <label for="capacidad_parque">Capacidad:</label>
-    <input type="text" id="capacidad_parque" name="capacidad_parque">
-    <br>
-    <label for="ob_parque">Observaciones:</label>
-    <textarea id="ob_parque" name="ob_parque"></textarea>
-    <br>
-    <button type="submit">Agregar Parque</button>
+  </head>
+
+  <body>
+
+    <div class="body_content">
+      <header>
+        <div class="header_content">
+          <a href="/"><h3>Vision App</h3></a>
+          <nav>
+            <ul>
+                <li><a href="/nuestros_servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="/chat">ChatAi</a></li>
+            </ul>
+          </nav>
+
+          <h3><a href="">Work With Us</a></h3>
+        </div>
+      </header>
+
+      <span class="span_categories">Categories</span>
+      <hr class="separator" />
+
+      <section class="nav_bar">
+        <nav>
+          <ul>
+            <li class="li_item"><a href="/">HOME</a></li>
+            <li class="li_item"><a href="/parque">PERFIL DEL PARQUE</a></li>
+            <li class="li_item"><a href="/estadisticas">TUS ESTADISTICAS</a></li>
+            <li class="li_item"><a href="/informes">INFORMES</a></li>
+            <li class="li_item"><a href="/citas">PROGRAMAR CITAS</a></li>
+            <li class="li_item"><a href="/servicio">SERVICIO AL CLIENTE</a></li>
+            <li class="li_item"><a href="/chat">VISION AI.CHAT</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section>
+    <!-- Formulario para agregar parque -->
+
+    <form  class="formulario" action="/agregar-parque" method="post">
+        <h2>Agregar Parque</h2>
+        
+        <label for="nombre_parque">Nombre:</label>
+        <input type="text" id="nombre_parque" name="nombre_parque" required>
+        <br>
+        <label for="direccion_parque">Dirección:</label>
+        <input type="text" id="direccion_parque" name="direccion_parque" required>
+        <br>
+        <label for="telefono_parque">Teléfono:</label>
+        <input type="text" id="telefono_parque" name="telefono_parque">
+        <br>
+        <label for="eficiencia_parque">Eficiencia (%):</label>
+        <input type="text" id="eficiencia_parque" name="eficiencia_parque">
+        <br>
+        <label for="area_parque">Área (m2):</label>
+        <input type="text" id="area_parque" name="area_parque">
+        <br>
+        <label for="capacidad_parque">Capacidad (MW):</label>
+        <input type="text" id="capacidad_parque" name="capacidad_parque">
+        <br>
+        <label for="ob_parque">Observaciones:</label>
+        <textarea id="ob_parque" name="ob_parque"></textarea>
+        <br>
+        <button type="submit">Agregar Parque</button>
     </form>
 
-    <h2>Lista de Parques</h2>
+      </section>
+      </div>
+    <div class="body_content">
+      <section>
+      <h2>Lista de Parques</h2>
     <table>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Dirección</th>
             <th>Teléfono</th>
-            <th>Eficiencia</th>
-            <th>Área</th>
-            <th>Capacidad</th>
+            <th>Eficiencia (%)</th>
+            <th>Área (m2)</th>
+            <th>Capacidad (MW)</th>
             <th>Observaciones</th>
+            <th>Ver Eventos</th> <!-- Nueva columna -->
         </tr>
         <% parques.forEach(parque => { %>
             <tr>
@@ -57,8 +100,20 @@
                 <td><%= parque.area_parque %></td>
                 <td><%= parque.capacidad_parque %></td>
                 <td><%= parque.ob_parque %></td>
+                <!-- Agregar enlace para ver eventos del parque -->
+                <td class="ver_evento"><a href="/eventos-parque/<%= parque.id_parque %>">Ver Eventos</a></td>
             </tr>
         <% }); %>
     </table>
-</body>
+    </section>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
+        Producción SAS
+      </p>
+      <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
+    </footer>
+  </body>
 </html>

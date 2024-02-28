@@ -5,6 +5,8 @@ const port = 3000;
 // Middleware para parsear las solicitudes con cuerpo JSON y URL codificada
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use('/public', express.static('public'));//para poder importar imagenes
+
 
 const dotenv = require('dotenv');
 dotenv.config({ path: './env/.env' });
@@ -19,6 +21,7 @@ const bcryptjs = require('bcrypt');
 
 // Middleware de sesión
 const session = require('express-session');
+
 app.use(session({
     secret: 'secret',
     resave: true,
@@ -28,6 +31,18 @@ app.use(session({
 // Conexión a la base de datos
 const connection = require('./database/db');
 
+// Función para realizar consultas a la base de datos
+async function queryDatabase(sqlQuery, values) {
+    return new Promise((resolve, reject) => {
+        connection.query(sqlQuery, values, (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+}
 
 // Ruta de inicio de sesión
 app.get('/login', (req, res) => {
@@ -50,16 +65,21 @@ app.get('/chat', (req, res) => {
         logb: false,
         name: 'Debe iniciar sesión'
     });
-}
-);
+});
 
 app.get('/servicio', (req, res) => {
     res.render('servicio', {
         logb: false,
         name: 'Debe iniciar sesión'
     });
-}
-);
+});
+
+app.get('/nuestros_servicios', (req, res) => {
+    res.render('nuestros_servicios', {
+        logb: false,
+        name: 'Debe iniciar sesión'
+    });
+});
 
 // Controlador de registro de usuario
 app.post('/register', async (req, res) => {
@@ -98,24 +118,6 @@ app.post('/register', async (req, res) => {
         console.error("Error en el registro:", error);
         res.status(500).send("Error en el servidor");
     }
-});
-
-// Función para realizar consultas a la base de datos
-async function queryDatabase(sqlQuery, values) {
-    return new Promise((resolve, reject) => {
-        connection.query(sqlQuery, values, (err, rows) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(rows);
-            }
-        });
-    });
-}
-
-// Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`);
 });
 
 // Ruta de inicio de sesión
@@ -179,20 +181,6 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// app.get('/parque', async (req, res) => {
-//     try {
-//         const loggedinNit = req.session.nit; // Obtener el NIT del usuario logueado
-//         const loggedinUserQuery = "SELECT * FROM user WHERE nit_user = ?";
-//         const loggedinUser = await queryDatabase(loggedinUserQuery, [loggedinNit]);
-
-//         res.render('parque', { loggedinUser });
-//     } catch (error) {
-//         console.error("Error al recuperar usuario logueado:", error);
-//         res.status(500).send("Error en el servidor");
-//     }
-// });
-
-
 // Ruta para agregar parques
 app.post('/agregar-parque', async (req, res) => {
     try {
@@ -209,15 +197,157 @@ app.post('/agregar-parque', async (req, res) => {
     }
 });
 
+//----------------------Tabla de los parques--------------------------------------
 app.get('/parque', async (req, res) => {
     try {
         const nit_user_parque = req.session.nit;
         const getParquesQuery = "SELECT * FROM parques WHERE nit_user_parque = ?";
-        const parques = await queryDatabase(getParquesQuery, [nit_user_parque]);
+        const parques = await queryDatabase(getParquesQuery, [nit_user_parque]); // respuesta de la base de datos que se guarda en parques
 
         res.render('parque', { parques });
+
     } catch (error) {
         console.error("Error al recuperar parques:", error);
+        res.status(500).send("Error en el servidor");
+    }
+});
+
+//---------------------------------Rutas de parque---------------------------------
+
+// Función para obtener los eventos asociados a un parque específico
+
+async function obtenerEventosDelParque(id_del_parque) {
+    try {
+        // Construir la consulta SQL para obtener los eventos del parque
+        const getEventosQuery = 'SELECT * FROM evento WHERE id_parque_evento = ?';
+
+        // Ejecutar la consulta SQL
+        const eventos = await queryDatabase(getEventosQuery, [id_del_parque]);
+
+        // Devolver los eventos obtenidos
+        return eventos;
+    } catch (error) {
+        throw error;
+    }
+}
+//-------------------------------------------------------------------------
+
+
+// Endpoint GET para mostrar la página de eventos del parque
+app.get('/eventos-parque/:id_parque', async (req, res) => {
+
+    try {
+        let id_del_parque = req.params.id_parque;
+
+        // Verificar si id_del_parque está disponible; si no, buscar en la sesión
+        if (!id_del_parque && req.session.id_del_parque) {
+            id_del_parque = req.session.id_del_parque;
+        } else if (!id_del_parque) {
+            // Si no hay id_del_parque ni en la URL ni en la sesión, manejar el error
+            return res.status(400).send("ID del parque es requerido.");
+        }
+
+        const eventos = await obtenerEventosDelParque(id_del_parque);
+
+        // Opcional: Limpieza de id_del_parque en la sesión después de usarlo
+        // delete req.session.id_del_parque;
+
+        res.render('eventos_parque', {
+            eventos: eventos,
+            id_del_parque: id_del_parque
+        });
+
+    } catch (error) {
+
+        console.error("Error al obtener los eventos del parque:", error);
+        res.status(500).send("Error en el servidor");
+
+    }
+
+});
+//-------------------------------------------------------------------------
+
+// Ruta para agregar un nuevo evento
+
+app.post('/agregar-evento', async (req, res) => {
+    try {
+        // Obtener el id del parque del cuerpo de la solicitud
+        const id_parque_evento = req.body.id_parque_evento;
+
+        // Almacenar id_del_parque en la sesión para su uso posterior
+        req.session.id_del_parque = id_parque_evento;
+
+        // Obtener el nit del usuario logueado desde la sesión
+        const nit_user_evento = req.session.nit;
+
+        // Obtener otros datos del formulario de la solicitud
+        const { piloto_evento, testigo_evento, cantpanel_evento, vueloini_evento, vuelofin_evento, ob_evento, tipopanel_evento } = req.body;
+
+        // Construir la consulta SQL para insertar un nuevo evento
+        const insertEventoQuery = 'INSERT INTO evento (id_parque_evento, nit_user_evento, piloto_evento, testigo_evento, cantpanel_evento, vueloini_evento, vuelofin_evento, ob_evento, tipopanel_evento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+        // Ejecutar la consulta SQL
+        await queryDatabase(insertEventoQuery, [id_parque_evento, nit_user_evento, piloto_evento, testigo_evento, cantpanel_evento, vueloini_evento, vuelofin_evento, ob_evento, tipopanel_evento]);
+
+        // Redirigir a la página de eventos del parque específico después de agregar el evento
+        // Usando el id_del_parque almacenado en la sesión para asegurar la consistencia
+        res.redirect(`/eventos-parque/${req.session.id_del_parque}`);
+    } catch (error) {
+        // Manejo de errores
+        console.error("Error al agregar evento:", error);
+        res.status(500).send("Error en el servidor");
+    }
+});
+//-------------------------------------------------------------------------
+
+// Ruta para mostrar eventos del parque
+app.get('/eventos-parque', async (req, res) => {
+    try {
+        // Aquí debes recuperar los eventos del parque y renderizar la página eventos_parque.ejs
+        const nit_user_evento = req.session.nit;
+        console.log(nit_user_evento);
+        const getEventosQuery = "SELECT * FROM evento WHERE nit_user_evento = ?";
+        const eventos = await queryDatabase(getEventosQuery, [nit_user_evento]);
+
+        res.render('eventos_parque', { eventos });
+        console.log(eventos);
+    } catch (error) {
+        console.error("Error al recuperar eventos del parque:", error);
+        res.status(500).send("Error en el servidor");
+    }
+});
+//-------------------------------------------------------------------------
+
+// Iniciar el servidor
+app.listen(port, () => {
+    console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+
+//-------------------------------------------------------------------------
+
+// Ruta para filtrar eventos
+app.post('/filtrar-eventos', async (req, res) => {
+    try {
+        const { filtro_id, filtro_fecha } = req.body;
+        const nit_user_evento = req.session.nit;
+
+        let getEventosQuery = "SELECT * FROM evento WHERE nit_user_evento = ?";
+
+        // Agregar condiciones de filtrado si se proporciona un ID de evento
+        if (filtro_id) {
+            getEventosQuery += " AND id_evento = ?";
+        }
+
+        // Agregar condiciones de filtrado si se proporciona una fecha de evento
+        if (filtro_fecha) {
+            getEventosQuery += " AND DATE(fecha_evento) = ?";
+        }
+
+        const eventos = await queryDatabase(getEventosQuery, [nit_user_evento, filtro_id, filtro_fecha]);
+
+        res.render('eventos_parque', { eventos });
+    } catch (error) {
+        console.error("Error al filtrar eventos:", error);
         res.status(500).send("Error en el servidor");
     }
 });

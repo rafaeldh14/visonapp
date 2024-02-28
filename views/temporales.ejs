@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos</title>
+
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+  </head>
+<style>
+
+body {
+    background: linear-gradient(45deg,
+            rgb(34, 45, 91),
+            rgb(46, 33, 98),
+            rgb(40, 80, 120),
+            rgb(18, 19, 44),
+            rgb(28 28 67));
+    color: #fff;
+    font-family: 'JetBrains Mono';
+    margin: auto;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos para el contenedor de la tabla */
+
+.tabla-eventos-contenedor {
+    height: calc(100vh - 500px); /* Ajusta según la altura de tus filas */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    width: 90%; /* O el ancho que prefieras */
+    
+    margin: auto; /* Centrar el contenedor */
+    border: 1px solid #ccc; /* Opcional: Agrega un borde si es necesario */
+}
+
+/* Tus otros estilos de tabla aquí */
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    /* Ancho relativo al contenedor */
+    
+    /* Máximo ancho */
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    /* Bordes sutiles */
+}
+
+/* Estilos para las celdas de la tabla */
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilos para la fila de encabezado */
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+/* Estilos para filas impares */
+tr:nth-child(odd) {
+    background-color: #3e21b477;
+}
+
+/* Estilos para filas al pasar el mouse */
+tr:hover {
+    background-color: #239a8e7a;
+}
+</style>
+<body>
+    <h1>Eventos del Parque</h1>
+
+    <h2>Agregar Nuevo Evento</h2>
+    <form action="/agregar-evento" method="post">
+        <label for="piloto_evento">Piloto:</label>
+        <input type="text" id="piloto_evento" name="piloto_evento" required>
+        <br>
+        <label for="testigo_evento">Testigo:</label>
+        <input type="text" id="testigo_evento" name="testigo_evento" required>
+        <br>
+        <label for="cantpanel_evento">Cantidad de paneles:</label>
+        <input type="text" id="cantpanel_evento" name="cantpanel_evento" required>
+        <br>
+        <label for="vueloini_evento">Inicio del vuelo:</label>
+        <input type="time" id="vueloini_evento" name="vueloini_evento" required>
+        <br>
+        <label for="vuelofin_evento">Fin del vuelo:</label>
+        <input type="time" id="vuelofin_evento" name="vuelofin_evento" required>
+        <br>
+        <label for="ob_evento">Observaciones:</label>
+        <textarea id="ob_evento" name="ob_evento"></textarea>
+        <br>
+        <label for="tipopanel_evento">Tipo de panel:</label>
+        <select id="tipopanel_evento" name="tipopanel_evento" required>
+            <option value="Monocristalino">Monocristalino</option>
+            <option value="Policristalino">Policristalino</option>
+        </select>
+        <br>
+        <!-- Campo oculto para enviar el ID del parque -->
+        <input type="hidden" id="id_parque_evento" name="id_parque_evento" value="<%= id_del_parque || 'default' %>">
+        
+        <button type="submit">Agregar Evento</button>
+    </form>
+
+        <h2>Filtrar Eventos</h2>
+    <form action="/filtrar-eventos" method="post">
+        <label for="id_evento">ID del Evento:</label>
+        <input type="text" id="id_evento" name="id_evento">
+        <br>
+        <label for="fecha_inicio">Fecha Inicio:</label>
+        <input type="date" id="fecha_inicio" name="fecha_inicio">
+        <br>
+        <label for="fecha_fin">Fecha Fin:</label>
+        <input type="date" id="fecha_fin" name="fecha_fin">
+        <br>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <h2>Lista de Eventos</h2>
+    <div class="tabla-eventos-contenedor">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Piloto</th>
+            <th>Testigo</th>
+            <th>Fecha de la visita</th>
+            <th># Paneles evaluados</th>
+            <th>Observaciones</th>
+            <th>Informe</th>
+            <th>Fecha del informe</th>
+
+        </tr>
+        <% eventos.forEach(evento => { %>
+            <tr>
+                <td><%= evento.id_evento %></td>
+
+                <td><%= evento.piloto_evento %></td>
+
+                <td><%= evento.testigo_evento %></td>
+
+                <%
+                    var fechaEvento = new Date(evento.fecha_evento);
+                    fechaEvento.setHours(fechaEvento.getHours() - 5); // Ajustar según tu zona horaria
+                %>
+                <td><%= fechaEvento.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
+                
+                <td><%= evento.cantpanel_evento %></td>
+
+                <td><%= evento.ob_evento %></td>
+
+                <td><%= evento.linkinforme_evento %></td>
+
+                <%
+                    var fechaInforme = new Date(evento.fechainforme_evento);
+                    fechaInforme.setHours(fechaInforme.getHours() - 5); // Ajustar según tu zona horaria
+                %>
+                <td><%= fechaInforme.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
+                
+            </tr>
+        <% }); %>
+        
+    </table>
+    </div>
+    
+</body>
+</html>

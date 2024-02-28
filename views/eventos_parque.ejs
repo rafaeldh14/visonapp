@@ -1,7 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos</title>
+
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+  </head>
+
+<style>
+
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 20px 0;
+    text-align: center;
+    color: #ddd;
 }
 
 h2 {
@@ -27,85 +46,46 @@ body {
         margin: 0 auto;
         width: 80%;
 
-        & header {
-            justify-content: center;
-            margin: 80px 0 60px 0;
-            display: flex;
-            width: 100%;
-
-            /* Contenidio del header */
-            & .header_content {
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                justify-content: space-between;
-                border: 2px solid #454e97;
-                border-radius: 40px;
-                align-items: center;
-                padding: 0 40px;
-                display: flex;
-                height: 100px;
-                width: 100%;
-                background: linear-gradient(45deg,
-                        rgb(44 44 119),
-                        rgb(39 39 102),
-                        rgb(40 46 120),
-                        rgb(37 39 96),
-                        rgb(28 28 67));
-
-                & h3,
-                & h3 a,
-                & nav ul li a {
-                    text-decoration: none;
-                    color: #ceabec;
-                }
-            }
-        }
-
         & .span_categories {
             color: #ceabec;
         }
 
-        & .separator {
-            border: 1.5px solid #454e97;
-            margin: 8px 0;
-            width: 100%;
-        }
-
-        & .nav_bar {
-            margin: 60px 0;
-            width: 100%;
-
-            & nav {
-                & ul {
-                    justify-content: space-evenly;
-                    display: flex;
-
-                    & .li_item {
-                        border: 1px solid white;
-                        border-radius: 20px;
-                        cursor: pointer;
-                        padding: 10px;
-
-                        &:hover {
-                            background-color: #ceabec;
-                            transition: 0.5s;
-
-                            & a {
-                                color: black;
-                            }
-                        }
-
-                        & a {
-                            color: #ceabec;
-                        }
-                    }
-                }
-            }
-        }
-
-
     }
 }
 
+.body_content {
+        margin: 0 auto;
+        width: 80%;}
+
+header {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    /* Centra el header */
+    margin: 80px auto; /* Cambiado para centrar horizontalmente el header en la página */
+}
+
+.header_content {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    border: 2px solid #454e97;
+    border-radius: 40px;
+    align-items: center;
+    padding: 0 40px;
+    display: flex;
+    height: 100px;
+    width: 100%;
+    background: linear-gradient(45deg, rgb(44 44 119), rgb(39 39 102), rgb(40 46 120), rgb(37 39 96), rgb(28 28 67));
+}
+
+.header_content h3,
+.header_content h3 a,
+.header_content nav ul li a {
+    text-decoration: none;
+    color: #ceabec;
+}
+
+    
 /* Estilos para el hover de los enlaces del header */
 header a:hover {
     color: #ffeb3b;
@@ -185,7 +165,7 @@ footer {
 }
 
 .header_login {
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: center;
     margin: 80px 0 60px 0;
@@ -217,21 +197,18 @@ footer {
 }
 
 
-/* Estilos para el contenedor de la tabla */
-.table-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Tamaño completo de la pantalla */
-}
+
 
 /* Estilos para la tabla */
 table {
+
+   display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    /* Máximo ancho */
     border-collapse: collapse;
-    border: 1px solid #ccc;
+    text-align: center;
+    
 
     /* Bordes sutiles */
 }
@@ -240,8 +217,9 @@ table {
 th,
 td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
+
 }
 
 /* Estilos para la fila de encabezado */
@@ -395,8 +373,133 @@ button:hover {
             rgb(28 28 67));
     border-radius: 20px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-    width: 100%;
+    width: 40%;
     margin: 0 auto;
     color: white;
     text-align: center;
 }
+
+</style>
+
+
+
+<body>
+
+    <div class="body_content"></div>
+
+    <header>
+        <div class="header_content">
+          <a href="/"><h3>Vision App</h3></a>
+          <nav>
+            <ul>
+                <li><a href="/nuestros_servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="/chat">ChatAi</a></li>
+            </ul>
+          </nav>
+
+          <h3><a href="">Work With Us</a></h3>
+        </div>
+      </header>
+
+    <h1>Eventos del Parque</h1>
+
+    <h2>Agregar Nuevo Evento</h2>
+    <form class="formulario" action="/agregar-evento" method="post">
+        <label for="piloto_evento">Piloto:</label>
+        <input type="text" id="piloto_evento" name="piloto_evento" required>
+        <br>
+        <label for="testigo_evento">Testigo:</label>
+        <input type="text" id="testigo_evento" name="testigo_evento" required>
+        <br>
+        <label for="cantpanel_evento">Cantidad de paneles:</label>
+        <input type="text" id="cantpanel_evento" name="cantpanel_evento" required>
+        <br>
+        <label for="vueloini_evento">Inicio del vuelo:</label>
+        <input type="time" id="vueloini_evento" name="vueloini_evento" required>
+        <br>
+        <label for="vuelofin_evento">Fin del vuelo:</label>
+        <input type="time" id="vuelofin_evento" name="vuelofin_evento" required>
+        <br>
+        <label for="ob_evento">Observaciones:</label>
+        <textarea id="ob_evento" name="ob_evento"></textarea>
+        <br>
+        <label for="tipopanel_evento">Tipo de panel:</label>
+        <select id="tipopanel_evento" name="tipopanel_evento" required>
+            <option value="Monocristalino">Monocristalino</option>
+            <option value="Policristalino">Policristalino</option>
+        </select>
+        <br>
+        <!-- Campo oculto para enviar el ID del parque -->
+        <input type="hidden" id="id_parque_evento" name="id_parque_evento" value="<%= id_del_parque || 'default' %>">
+        
+        <button type="submit">Agregar Evento</button>
+    </form>
+
+        <h2>Filtrar Eventos</h2>
+    <form class="formulario" action="/filtrar-eventos" method="post">
+
+        <label for="filtro_id">ID del Evento:</label>
+        <input type="text" id="filtro_id" name="filtro_id">
+        <br>
+        <label for="filtro_fecha">Fecha:</label>
+        <input type="date" id="filtro_fecha" name="filtro_fecha">
+        <br>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <h2>Lista de Eventos</h2>
+    <div class="tabla-eventos-contenedor">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Piloto</th>
+            <th>Testigo</th>
+            <th>Fecha de la visita</th>
+            <th># Paneles evaluados</th>
+            <th>Observaciones</th>
+            <th>Informe</th>
+            <th>Fecha del informe</th>
+
+        </tr>
+        <% eventos.forEach(evento => { %>
+            <tr>
+                <td><%= evento.id_evento %></td>
+
+                <td><%= evento.piloto_evento %></td>
+
+                <td><%= evento.testigo_evento %></td>
+
+                <%
+                    var fechaEvento = new Date(evento.fecha_evento);
+                    fechaEvento.setHours(fechaEvento.getHours() - 5); // Ajustar según tu zona horaria
+                %>
+                <td><%= fechaEvento.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
+                
+                <td><%= evento.cantpanel_evento %></td>
+
+                <td><%= evento.ob_evento %></td>
+
+                <td class="ver_informe"><a href="<%= evento.linkinforme_evento %>">Ver Informe</a></td>
+
+                <%
+                    var fechaInforme = new Date(evento.fechainforme_evento);
+                    fechaInforme.setHours(fechaInforme.getHours() - 5); // Ajustar según tu zona horaria
+                %>
+                <td><%= fechaInforme.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
+                
+            </tr>
+        <% }); %>
+
+    </table>
+    </div>
+    </div>
+    <footer>
+      <p>
+        &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
+        Producción SAS
+      </p>
+      <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
+    </footer>
+</body>
+</html>

@@ -3,71 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/style.css">
+
+    <link rel="stylesheet" href="resources/css/style_eventos_parque.css">
+    
     <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
-    <title>Registro de Parques</title>
+    <title>Eventos del Parque</title>
 </head>
 <body>
-    
-    <div class="register-form">
-    <h1>Registrar parque</h1>
-    <form action="parque_reg" method="post">
+    <h1>Eventos del Parque</h1>
 
-        <div class="input_container">
-            <label class="label_style" for="razonsocial">Razon social</label>
-            <input type="text" name="razonsocial" id="razonsocial" class="input_style" required>
-        </div>
-
-        <div class="input_container">
-            <label class="label_style" for="nit">NIT</label>
-            <input type="number" name="nit" id="nit" class="input_style" required>
-        </div>
-
-        <div class="input_container">
-            <label class="label_style" for="email">Email</label>
-            <input type="email" name="email" id="email" class="input_style" required>
-        </div>
-
-        <div class="input_container">
-            <label class="label_style" for="pass">Contraseña</label>
-            <input type="password" name="pass" id="pass" class="input_style" required>
-        </div>
-
-        <div class="input_container">
-            <label class="label_style" for="direccion">Dirección</label>
-            <input type="text" name="direccion" id="direccion" class="input_style" required>
-        </div>
+    <h2>Agregar Nuevo Evento</h2>
+    <form action="/agregar-evento" method="post">
+        <label for="piloto_evento">Piloto:</label>
+        <input type="text" id="piloto_evento" name="piloto_evento" required>
+        <br>
+        <label for="testigo_evento">Testigo:</label>
+        <input type="text" id="testigo_evento" name="testigo_evento" required>
+        <br>
+        <label for="cantpanel_evento">Cantidad de paneles:</label>
+        <input type="text" id="cantpanel_evento" name="cantpanel_evento" required>
+        <br>
+        <label for="vueloini_evento">Inicio del vuelo:</label>
+        <input type="time" id="vueloini_evento" name="vueloini_evento" required>
+        <br>
+        <label for="vuelofin_evento">Fin del vuelo:</label>
+        <input type="time" id="vuelofin_evento" name="vuelofin_evento" required>
+        <br>
+        <label for="ob_evento">Observaciones:</label>
+        <textarea id="ob_evento" name="ob_evento"></textarea>
+        <br>
+        <label for="tipopanel_evento">Tipo de panel:</label>
+        <select id="tipopanel_evento" name="tipopanel_evento" required>
+            <option value="monocromatico">Monocromático</option>
+            <option value="policromatico">Policromático</option>
+        </select>
+        <br>
+        <!-- Campo oculto para enviar el ID del parque -->
+        <input type="hidden" id="id_parque_evento" name="id_parque_evento" value="<%= id_del_parque %>">
         
-        <div class="input_container">
-            <label class="label_style" for="telefono">Telefono</label>
-            <input type="number" name="telefono" id="telefono" class="input_style" required>
-        </div>
-
-        <div class="input_container">
-            <label class="label_style" for="encargado">Encargado / Representante</label>
-            <input type="text" name="encargado" id="encargado" class="input_style" required>
-        </div>
-
-
-        <div style="display: inline;"> 
-            <a href="/" class="btn-cancel">Cancelar</a> <input type="submit" class="btn-save" value="Registrar parque">
-        </div>
+        <button type="submit">Agregar Evento</button>
     </form>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <% if(typeof alert != "undefined") { %>
-        <script>
-            Swal.fire({
-                icon: '<%= alertIcon %>',
-                title: '<%= alertTitle %>',
-                text: '<%= alertMessage %>',
-                showConfirmButton: '<%= showConfirmButton %>',
-                timer: '<%= timer %>',
-            }).then(() => {
-                    window.location = '/ <%= ruta %>';
-            });
-        </script>
-    <% } %>
+    <h2>Lista de Eventos</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Piloto</th>
+            <th>Testigo</th>
+            <th>Fecha</th>
+            <th>Cantidad de Paneles</th>
+            <th>Observaciones</th>
+            <th>Tipo de Panel</th>
+        </tr>
+        <% eventos.forEach(evento => { %>
+            <tr>
+                <td><%= evento.id_evento %></td>
+                <td><%= evento.piloto_evento %></td>
+                <td><%= evento.testigo_evento %></td>
+                <td><%= evento.fecha_evento %></td>
+                <td><%= evento.cantpanel_evento %></td>
+                <td><%= evento.ob_evento %></td>
+                <td><%= evento.tipopanel_evento %></td>
+            </tr>
+        <% }); %>
+    </table>
 </body>
 </html>
