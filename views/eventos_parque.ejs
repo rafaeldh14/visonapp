@@ -379,6 +379,13 @@ button:hover {
     text-align: center;
 }
 
+.btns_container {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
 </style>
 
 
@@ -437,18 +444,20 @@ button:hover {
     </form>
 
         <h2>Filtrar Eventos</h2>
-    <form class="formulario" action="/filtrar-eventos" method="post">
-
-        <label for="filtro_id">ID del Evento:</label>
-        <input type="text" id="filtro_id" name="filtro_id">
+    <div class="formulario">
+        <label for="filtro-id">ID del Evento:</label>
+        <input type="text" id="filtro-id" name="filtro-id">
         <br>
-        <label for="filtro_fecha">Fecha:</label>
-        <input type="date" id="filtro_fecha" name="filtro_fecha">
+        <label for="filtro-fecha">Fecha:</label>
+        <input type="date" id="filtro-fecha" name="filtro-fecha">
         <br>
-        <button type="submit">Filtrar</button>
-    </form>
+        <div class="btns_container">
+            <button onclick="limpiarFiltro()">Limpiar</button>
+        </div>
+    </div>
 
     <h2>Lista de Eventos</h2>
+
     <div class="tabla-eventos-contenedor">
         <h3><%= id_del_parque %></h3>
     <table>
@@ -502,5 +511,57 @@ button:hover {
       </p>
       <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var filtroIdInput = document.getElementById("filtro-id");
+            var filtroFechaInput = document.getElementById("filtro-fecha");
+
+            filtroIdInput.addEventListener("input", filtrarEventos);
+            filtroFechaInput.addEventListener("input", filtrarEventos);
+        });
+
+        function filtrarEventos() {
+            var filtro = document.getElementById("filtro-id").value.toUpperCase();
+            var filtroFecha = document.getElementById("filtro-fecha").value;
+            var fechaFormateada = formatoFecha(filtroFecha);
+            var filas = document.querySelectorAll(".tabla-eventos-contenedor table tr");
+
+            for (var i = 1; i < filas.length; i++) {
+                try {
+                    var fila = filas[i];
+                    var celdaId = fila.getElementsByTagName("td")[0];
+                    var celdaFecha = fila.getElementsByTagName("td")[3];
+                    var textoId = celdaId.textContent || celdaId.innerText;
+                    console.log(textoId);
+                    var textoFecha = celdaFecha.textContent || celdaFecha.innerText;
+                    var fechaEvento = textoFecha.split(",")[0].trim();
+
+                    if ((filtro === "" || textoId.toUpperCase() === filtro) &&
+                        (filtroFecha === "" || fechaEvento === fechaFormateada)) {
+                        fila.style.display = "";
+                    } else {
+                        fila.style.display = "none";
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        }
+
+        function formatoFecha(fecha) {
+            // Formatear la fecha a dd/mm/yyyy
+            var partesFecha = fecha.split("-");
+            return partesFecha[2] + "/" + partesFecha[1] + "/" + partesFecha[0];
+        }
+
+        function limpiarFiltro() {
+            document.getElementById("filtro-id").value = "";
+            document.getElementById("filtro-fecha").value = "";
+            var filas = document.querySelectorAll(".tabla-eventos-contenedor table tr");
+            for (var i = 1; i < filas.length; i++) {
+                filas[i].style.display = "";
+            }
+        }
+    </script>
 </body>
 </html>
