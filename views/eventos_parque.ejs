@@ -30,6 +30,13 @@ h2 {
     color: #ddd;
 }
 
+h3 {
+    font-size: 1.5em;
+    margin: 20px 0;
+    text-align: center;
+    color: #ddd;
+}
+
 body {
     font-family: 'JetBrains Mono';
     padding-bottom: 100px;
@@ -363,8 +370,9 @@ button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
-    padding: 20px;
+    
+    margin-top: 10px;
+    padding: 10px;
     background: linear-gradient(135deg,
             rgb(34, 45, 91),
             rgb(46, 33, 98),
@@ -373,10 +381,47 @@ button:hover {
             rgb(28 28 67));
     border-radius: 20px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-    width: 40%;
+    width: 90%;
     margin: 0 auto;
     color: white;
     text-align: center;
+}
+
+.custom-button {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.flex-container {
+    flex-direction: row-reverse;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-columna {
+    flex: 1;
+    /* Hace que cada columna ocupe un espacio igual dentro del contenedor */
+    margin: 0 10px;
+    /* Añade un poco de margen entre las columnas si lo deseas */
+
+    &:nth-child(1) {
+        flex: 1.5;
+    }
+}
+
+.tabla {
+    height: calc(100vh - 200px);
+    overflow: auto;
 }
 
 .btns_container {
@@ -388,12 +433,7 @@ button:hover {
 
 </style>
 
-
-
 <body>
-
-    <div class="body_content"></div>
-
     <header>
         <div class="header_content">
           <a href="/"><h3>Vision App</h3></a>
@@ -409,101 +449,87 @@ button:hover {
         </div>
       </header>
 
-    <h1>Eventos del Parque</h1>
+    <div class="body_content">
 
-    <h2>Agregar Nuevo Evento</h2>
-    <form class="formulario" action="/agregar-evento" method="post">
-        <label for="piloto_evento">Piloto:</label>
-        <input type="text" id="piloto_evento" name="piloto_evento" required>
-        <br>
-        <label for="testigo_evento">Testigo:</label>
-        <input type="text" id="testigo_evento" name="testigo_evento" required>
-        <br>
-        <label for="cantpanel_evento">Cantidad de paneles:</label>
-        <input type="text" id="cantpanel_evento" name="cantpanel_evento" required>
-        <br>
-        <label for="vueloini_evento">Inicio del vuelo:</label>
-        <input type="time" id="vueloini_evento" name="vueloini_evento" required>
-        <br>
-        <label for="vuelofin_evento">Fin del vuelo:</label>
-        <input type="time" id="vuelofin_evento" name="vuelofin_evento" required>
-        <br>
-        <label for="ob_evento">Observaciones:</label>
-        <textarea id="ob_evento" name="ob_evento"></textarea>
-        <br>
-        <label for="tipopanel_evento">Tipo de panel:</label>
-        <select id="tipopanel_evento" name="tipopanel_evento" required>
-            <option value="Monocristalino">Monocristalino</option>
-            <option value="Policristalino">Policristalino</option>
-        </select>
-        <br>
-        <!-- Campo oculto para enviar el ID del parque -->
-        <input type="hidden" id="id_parque_evento" name="id_parque_evento" value="<%= id_del_parque || 'default' %>">
-        
-        <button type="submit">Agregar Evento</button>
-    </form>
+        <div class="flex-container">
+            <div class="flex-columna tabla">
+                <!-- Aquí va tu tabla -->
+                <h2>Lista de Eventos</h2>
+                <div class="tabla-eventos-contenedor">
 
-        <h2>Filtrar Eventos</h2>
-    <div class="formulario">
-        <label for="filtro-id">ID del Evento:</label>
-        <input type="text" id="filtro-id" name="filtro-id">
-        <br>
-        <label for="filtro-fecha">Fecha:</label>
-        <input type="date" id="filtro-fecha" name="filtro-fecha">
-        <br>
-        <div class="btns_container">
-            <button onclick="limpiarFiltro()">Limpiar</button>
+                    <h3>Parque ID: <%= id_del_parque %></h3>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Piloto</th>
+                                <th>Testigo</th>
+                                <th>Fecha de la visita</th>
+                                <th># Paneles evaluados</th>
+                                <th>Observaciones</th>
+                                <th>Informe</th>
+                                <th>Fecha del informe</th>
+                            </tr>
+                            <% eventos.forEach(evento => { %>
+                                <tr>
+                                    <td><%= evento.id_evento %></td>
+                                    <td><%= evento.piloto_evento %></td>
+                                    <td><%= evento.testigo_evento %></td>
+                                    <%
+                                        var fechaEvento = new Date(evento.fecha_evento);
+                                        fechaEvento.setHours(fechaEvento.getHours() - 5); // Ajustar según tu zona horaria
+                                    %>
+                                    <td><%= fechaEvento.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>                               
+                                    <td><%= evento.cantpanel_evento %></td>
+                                    <td><%= evento.ob_evento %></td>
+                                    <td class="ver_informe"><a href="<%= evento.linkinforme_evento %>" class="custom-button" target="_blank">Ver Informe</a></td>
+                                    <%
+                                        var fechaInforme = new Date(evento.fechainforme_evento);
+                                        fechaInforme.setHours(fechaInforme.getHours() - 5); // Ajustar según tu zona horaria
+                                    %>
+                                    <td><%= evento.fechainforme_evento %></td>
+                                </tr>
+                            <% }); %>
+                        </table>
+                </div>
+            </div>
+            <div class="flex-columna formulario">
+                <!-- Aquí va tu formulario -->
+                <h2>Agregar Nuevo Evento</h2>
+                    <form class="formulario" action="/agregar-evento" method="post">
+                        <label for="piloto_evento">Piloto:</label>
+                        <input type="text" id="piloto_evento" name="piloto_evento" required>
+                        <br>
+                        <label for="testigo_evento">Testigo:</label>
+                        <input type="text" id="testigo_evento" name="testigo_evento" required>
+                        <br>
+                        <label for="cantpanel_evento">Cantidad de paneles:</label>
+                        <input type="text" id="cantpanel_evento" name="cantpanel_evento" required>
+                        <br>
+                        <label for="vueloini_evento">Inicio del vuelo:</label>
+                        <input type="time" id="vueloini_evento" name="vueloini_evento" required>
+                        <br>
+                        <label for="vuelofin_evento">Fin del vuelo:</label>
+                        <input type="time" id="vuelofin_evento" name="vuelofin_evento" required>
+                        <br>
+                        <label for="ob_evento">Observaciones:</label>
+                        <textarea id="ob_evento" name="ob_evento"></textarea>
+                        <br>
+                        <label for="tipopanel_evento">Tipo de panel:</label>
+                        <select id="tipopanel_evento" name="tipopanel_evento" required>
+                            <option value="Monocristalino">Monocristalino</option>
+                            <option value="Policristalino">Policristalino</option>
+                        </select>
+                        <br>
+                        <!-- Campo oculto para enviar el ID del parque -->
+                        <input type="hidden" id="id_parque_evento" name="id_parque_evento" value="<%= id_del_parque || 'default' %>">
+                        
+                        <button type="submit">Agregar Evento</button>
+                    </form>
+            </div>
         </div>
+
     </div>
-
-    <h2>Lista de Eventos</h2>
-
-    <div class="tabla-eventos-contenedor">
-        <h3><%= id_del_parque %></h3>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Piloto</th>
-            <th>Testigo</th>
-            <th>Fecha de la visita</th>
-            <th># Paneles evaluados</th>
-            <th>Observaciones</th>
-            <th>Informe</th>
-            <th>Fecha del informe</th>
-
-        </tr>
-        <% eventos.forEach(evento => { %>
-            <tr>
-                <td><%= evento.id_evento %></td>
-
-                <td><%= evento.piloto_evento %></td>
-
-                <td><%= evento.testigo_evento %></td>
-
-                <%
-                    var fechaEvento = new Date(evento.fecha_evento);
-                    fechaEvento.setHours(fechaEvento.getHours() - 5); // Ajustar según tu zona horaria
-                %>
-                <td><%= fechaEvento.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
-                
-                <td><%= evento.cantpanel_evento %></td>
-
-                <td><%= evento.ob_evento %></td>
-
-                <td class="ver_informe"><a href="<%= evento.linkinforme_evento %>">Ver Informe</a></td>
-
-                <%
-                    var fechaInforme = new Date(evento.fechainforme_evento);
-                    fechaInforme.setHours(fechaInforme.getHours() - 5); // Ajustar según tu zona horaria
-                %>
-                <td><%= fechaInforme.toLocaleString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
-                
-            </tr>
-        <% }); %>
-
-    </table>
-    </div>
-    </div>
+  </div>
     <footer>
       <p>
         &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
