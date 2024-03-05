@@ -237,6 +237,8 @@ async function obtenerEventosDelParque(id_del_parque, nit_user_evento) {
 //-------------------------------------------------------------------------
 
 let eventosMaster = [];
+
+
 // Endpoint GET para mostrar la página de eventos del parque
 app.get('/eventos-parque/:id_parque', async (req, res) => {
 
@@ -336,23 +338,4 @@ app.listen(port, () => {
 
 //-------------------------------------------------------------------------
 
-// Ruta para filtrar eventos
-app.get('/filtrar-eventos', async (req, res) => {
 
-    try {
-        // Aquí debes recuperar los eventos del parque y renderizar la página eventos_parque.ejs
-        const { filtro_id, filtro_fecha } = req.body;
-        console.log(filtro_id);
-
-        const nit_user_evento = req.session.nit;
-
-        const getEventosQuery = "SELECT * FROM evento WHERE id_evento = ?";
-        const eventos = await queryDatabase(getEventosQuery, [filtro_id]);
-
-        res.render('eventos_parque', { eventos });
-        console.log(eventos);
-    } catch (error) {
-        console.error("Error al recuperar eventos del parque:", error);
-        res.status(500).send("Error en el servidor");
-    }
-});

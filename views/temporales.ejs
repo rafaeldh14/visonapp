@@ -175,3 +175,196 @@ tr:hover {
 
 <!-- Campo oculto para enviar el ID del parque -->
         <!-- <input type="hidden" id="id_parque_evento" name="id_parque_evento" value="<%= id_del_parque || 'default' %>"> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Parques</title>
+    <link rel="stylesheet" href="resources/css/style_parque.css" />
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+  </head>
+
+  <body>
+
+    <div class="body_content">
+      <header>
+        <div class="header_content">
+          <a href="/"><h3>Vision App</h3></a>
+          <nav>
+            <ul>
+                <li><a href="/nuestros_servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="/chat">ChatAi</a></li>
+            </ul>
+          </nav>
+
+          <h3><a href="">Work With Us</a></h3>
+        </div>
+      </header>
+
+      <span class="span_categories">Categories</span>
+      <hr class="separator" />
+
+      <section class="nav_bar">
+        <nav>
+          <ul>
+            <li class="li_item"><a href="/">HOME</a></li>
+            <li class="li_item"><a href="/parque">PERFIL DEL PARQUE</a></li>
+            <li class="li_item"><a href="/estadisticas">TUS ESTADISTICAS</a></li>
+            <li class="li_item"><a href="/informes">INFORMES</a></li>
+            <li class="li_item"><a href="/citas">PROGRAMAR CITAS</a></li>
+            <li class="li_item"><a href="/servicio">SERVICIO AL CLIENTE</a></li>
+            <li class="li_item"><a href="/chat">VISION AI.CHAT</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <div class="container1">
+        
+        <div class="columna tabla">
+          <!-- Aquí va tu tabla -->
+          <h2>Mis Parques</h2>
+              <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Eficiencia (%)</th>
+                    <th>Área (m2)</th>
+                    <th>Capacidad (MW)</th>
+                    <th>Observaciones</th>
+                    <th>Ver Eventos</th> <!-- Nueva columna -->
+                </tr>
+                <% parques.forEach(parque => { %>
+                    <tr>
+                        <td><%= parque.id_parque %></td>
+                        <td><%= parque.nombre_parque %></td>
+                        <td><%= parque.direccion_parque %></td>
+                        <td><%= parque.telefono_parque %></td>
+                        <td><%= parque.eficiencia_parque %></td>
+                        <td><%= parque.area_parque %></td>
+                        <td><%= parque.capacidad_parque %></td>
+                        <td><%= parque.ob_parque %></td>
+                        <!-- Agregar enlace para ver eventos del parque -->
+                        <td class="ver_evento">
+                          <a href="/eventos-parque/<%= parque.id_parque %>" class="custom-button" target="_blank">Ver Eventos</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+
+        <div class="columna formulario">
+          <!-- Aquí va tu formulario -->
+          <form  class="formulario" action="/agregar-parque" method="post">
+              <h2>Agregar Parque</h2>
+              
+              <label for="nombre_parque">Nombre:</label>
+              <input type="text" id="nombre_parque" name="nombre_parque" required>
+              <br>
+              <label for="direccion_parque">Dirección:</label>
+              <input type="text" id="direccion_parque" name="direccion_parque" required>
+              <br>
+              <label for="telefono_parque">Teléfono:</label>
+              <input type="text" id="telefono_parque" name="telefono_parque">
+              <br>
+              <label for="eficiencia_parque">Eficiencia (%):</label>
+              <input type="text" id="eficiencia_parque" name="eficiencia_parque">
+              <br>
+              <label for="area_parque">Área (m2):</label>
+              <input type="text" id="area_parque" name="area_parque">
+              <br>
+              <label for="capacidad_parque">Capacidad (MW):</label>
+              <input type="text" id="capacidad_parque" name="capacidad_parque">
+              <br>
+              <label for="ob_parque">Observaciones:</label>
+              <textarea id="ob_parque" name="ob_parque"></textarea>
+              <br>
+              <button type="submit">Agregar Parque</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="container1">
+
+        <div class="columna tabla">
+          <!-- Aquí va tu tabla -->
+          <h2>Mis Parques</h2>
+              <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Eficiencia (%)</th>
+                    <th>Área (m2)</th>
+                    <th>Capacidad (MW)</th>
+                    <th>Observaciones</th>
+                    <th>Ver Eventos</th> <!-- Nueva columna -->
+                </tr>
+                <% parques.forEach(parque => { %>
+                    <tr>
+                        <td><%= parque.id_parque %></td>
+                        <td><%= parque.nombre_parque %></td>
+                        <td><%= parque.direccion_parque %></td>
+                        <td><%= parque.telefono_parque %></td>
+                        <td><%= parque.eficiencia_parque %></td>
+                        <td><%= parque.area_parque %></td>
+                        <td><%= parque.capacidad_parque %></td>
+                        <td><%= parque.ob_parque %></td>
+                        <!-- Agregar enlace para ver eventos del parque -->
+                        <td class="ver_evento">
+                          <a href="/eventos-parque/<%= parque.id_parque %>" class="custom-button" target="_blank">Ver Eventos</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+        <div class="columna formulario">
+          <!-- Aquí va tu formulario -->
+          <h2>Agregar Nuevo Evento</h2>
+          <form class="formulario" action="/agregar-evento" method="post">
+              <label for="piloto_evento">Piloto:</label>
+              <input type="text" id="piloto_evento" name="piloto_evento" required>
+              <br>
+              <label for="testigo_evento">Testigo:</label>
+              <input type="text" id="testigo_evento" name="testigo_evento" required>
+              <br>
+              <label for="cantpanel_evento">Cantidad de paneles:</label>
+              <input type="text" id="cantpanel_evento" name="cantpanel_evento" required>
+              <br>
+              <label for="vueloini_evento">Inicio del vuelo:</label>
+              <input type="time" id="vueloini_evento" name="vueloini_evento" required>
+              <br>
+              <label for="vuelofin_evento">Fin del vuelo:</label>
+              <input type="time" id="vuelofin_evento" name="vuelofin_evento" required>
+              <br>
+              <label for="ob_evento">Observaciones:</label>
+              <textarea id="ob_evento" name="ob_evento"></textarea>
+              <br>
+              <label for="tipopanel_evento">Tipo de panel:</label>
+              <select id="tipopanel_evento" name="tipopanel_evento" required>
+                  <option value="Monocristalino">Monocristalino</option>
+                  <option value="Policristalino">Policristalino</option>
+              </select>
+              <br>
+              <button type="submit">Agregar Evento</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2024 Vision App Laboratorio de innovación y desarrollo Factor de
+        Producción SAS
+      </p>
+      <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
+    </footer>
+  </body>
+</html>

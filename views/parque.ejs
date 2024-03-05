@@ -43,69 +43,70 @@
         </nav>
       </section>
 
-      <section>
-    <!-- Formulario para agregar parque -->
-
+      <div class="flex-container">
+  <div class="flex-columna tabla">
+    <h2>Mis Parques</h2>
+              <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Eficiencia (%)</th>
+                    <th>Área (m2)</th>
+                    <th>Capacidad (MW)</th>
+                    <th>Observaciones</th>
+                    <th>Ver Eventos</th> <!-- Nueva columna -->
+                </tr>
+                <% parques.forEach(parque => { %>
+                    <tr>
+                        <td><%= parque.id_parque %></td>
+                        <td><%= parque.nombre_parque %></td>
+                        <td><%= parque.direccion_parque %></td>
+                        <td><%= parque.telefono_parque %></td>
+                        <td><%= parque.eficiencia_parque %></td>
+                        <td><%= parque.area_parque %></td>
+                        <td><%= parque.capacidad_parque %></td>
+                        <td><%= parque.ob_parque %></td>
+                        <!-- Agregar enlace para ver eventos del parque -->
+                        <td class="ver_evento">
+                          <a href="/eventos-parque/<%= parque.id_parque %>" class="custom-button" target="_blank">Ver Eventos</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+  </div>
+  <div class="flex-columna formulario">
+    <!-- Aquí va tu formulario -->
     <form  class="formulario" action="/agregar-parque" method="post">
-        <h2>Agregar Parque</h2>
-        
-        <label for="nombre_parque">Nombre:</label>
-        <input type="text" id="nombre_parque" name="nombre_parque" required>
-        <br>
-        <label for="direccion_parque">Dirección:</label>
-        <input type="text" id="direccion_parque" name="direccion_parque" required>
-        <br>
-        <label for="telefono_parque">Teléfono:</label>
-        <input type="text" id="telefono_parque" name="telefono_parque">
-        <br>
-        <label for="eficiencia_parque">Eficiencia (%):</label>
-        <input type="text" id="eficiencia_parque" name="eficiencia_parque">
-        <br>
-        <label for="area_parque">Área (m2):</label>
-        <input type="text" id="area_parque" name="area_parque">
-        <br>
-        <label for="capacidad_parque">Capacidad (MW):</label>
-        <input type="text" id="capacidad_parque" name="capacidad_parque">
-        <br>
-        <label for="ob_parque">Observaciones:</label>
-        <textarea id="ob_parque" name="ob_parque"></textarea>
-        <br>
-        <button type="submit">Agregar Parque</button>
-    </form>
+              <h2>Agregar Parque</h2>
+              
+              <label for="nombre_parque">Nombre:</label>
+              <input type="text" id="nombre_parque" name="nombre_parque" required>
+              <br>
+              <label for="direccion_parque">Dirección:</label>
+              <input type="text" id="direccion_parque" name="direccion_parque" required>
+              <br>
+              <label for="telefono_parque">Teléfono:</label>
+              <input type="text" id="telefono_parque" name="telefono_parque">
+              <br>
+              <label for="eficiencia_parque">Eficiencia (%):</label>
+              <input type="text" id="eficiencia_parque" name="eficiencia_parque">
+              <br>
+              <label for="area_parque">Área (m2):</label>
+              <input type="text" id="area_parque" name="area_parque">
+              <br>
+              <label for="capacidad_parque">Capacidad (MW):</label>
+              <input type="text" id="capacidad_parque" name="capacidad_parque">
+              <br>
+              <label for="ob_parque">Observaciones:</label>
+              <textarea id="ob_parque" name="ob_parque"></textarea>
+              <br>
+              <button type="submit">Agregar Parque</button>
+          </form>
+  </div>
+</div>
 
-      </section>
-      </div>
-    <div class="body_content">
-      <section>
-      <h2>Lista de Parques</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Dirección</th>
-            <th>Teléfono</th>
-            <th>Eficiencia (%)</th>
-            <th>Área (m2)</th>
-            <th>Capacidad (MW)</th>
-            <th>Observaciones</th>
-            <th>Ver Eventos</th> <!-- Nueva columna -->
-        </tr>
-        <% parques.forEach(parque => { %>
-            <tr>
-                <td><%= parque.id_parque %></td>
-                <td><%= parque.nombre_parque %></td>
-                <td><%= parque.direccion_parque %></td>
-                <td><%= parque.telefono_parque %></td>
-                <td><%= parque.eficiencia_parque %></td>
-                <td><%= parque.area_parque %></td>
-                <td><%= parque.capacidad_parque %></td>
-                <td><%= parque.ob_parque %></td>
-                <!-- Agregar enlace para ver eventos del parque -->
-                <td class="ver_evento"><a href="/eventos-parque/<%= parque.id_parque %>">Ver Eventos</a></td>
-            </tr>
-        <% }); %>
-    </table>
-    </section>
     </div>
 
     <footer>

@@ -400,3 +400,42 @@ button:hover {
     color: white;
     text-align: center;
 }
+
+.custom-button {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.container1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Divide el contenedor en dos columnas */
+    gap: 20px;
+    /* Espacio entre las columnas */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-columna {
+    flex: 1;
+    /* Hace que cada columna ocupe un espacio igual dentro del contenedor */
+    margin: 0 10px;
+    /* Añade un poco de margen entre las columnas si lo deseas */
+
+    &:nth-child(1) {
+        flex: 1.5;
+    }
+}
