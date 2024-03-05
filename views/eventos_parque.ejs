@@ -370,7 +370,6 @@ button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
     margin-top: 10px;
     padding: 10px;
     background: linear-gradient(135deg,
@@ -385,6 +384,37 @@ button:hover {
     margin: 0 auto;
     color: white;
     text-align: center;
+}
+
+.filtro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+    background: linear-gradient(135deg,
+            rgb(34, 45, 91),
+            rgb(46, 33, 98),
+            rgb(40, 80, 120),
+            rgb(18, 19, 44),
+            rgb(28 28 67));
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    color: white;
+    text-align: center;
+
+    & .inputs_container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+
+        & div {
+            flex: 1;
+        }
+    }
 }
 
 .custom-button {
@@ -406,13 +436,11 @@ button:hover {
     flex-direction: row-reverse;
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .flex-columna {
     flex: 1;
-    /* Hace que cada columna ocupe un espacio igual dentro del contenedor */
-    margin: 0 10px;
-    /* Añade un poco de margen entre las columnas si lo deseas */
 
     &:nth-child(1) {
         flex: 1.5;
@@ -421,7 +449,15 @@ button:hover {
 
 .tabla {
     height: calc(100vh - 200px);
+    padding: 0 40px;
     overflow: auto;
+}
+
+.btns_container {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    gap: 10px;
 }
 
 </style>
@@ -448,6 +484,21 @@ button:hover {
             <div class="flex-columna tabla">
                 <!-- Aquí va tu tabla -->
                 <h2>Lista de Eventos</h2>
+                <div class="filtro">
+                    <div class="inputs_container">
+                        <div>
+                            <label for="filtro-id">ID del Evento:</label>
+                            <input type="text" id="filtro-id" name="filtro-id">
+                        </div>
+                        <div>
+                            <label for="filtro-fecha">Fecha:</label>
+                            <input type="date" id="filtro-fecha" name="filtro-fecha">
+                        </div>
+                    </div>
+                    <div class="btns_container">
+                        <button onclick="limpiarFiltro()">Limpiar</button>
+                    </div>
+                </div>
                 <div class="tabla-eventos-contenedor">
 
                     <h3>Parque ID: <%= id_del_parque %></h3>
@@ -530,5 +581,57 @@ button:hover {
       </p>
       <p>Teléfono: 3013354020 Email: ing.rafaeldh@gmail.com</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var filtroIdInput = document.getElementById("filtro-id");
+            var filtroFechaInput = document.getElementById("filtro-fecha");
+
+            filtroIdInput.addEventListener("input", filtrarEventos);
+            filtroFechaInput.addEventListener("input", filtrarEventos);
+        });
+
+        function filtrarEventos() {
+            var filtro = document.getElementById("filtro-id").value.toUpperCase();
+            var filtroFecha = document.getElementById("filtro-fecha").value;
+            var fechaFormateada = formatoFecha(filtroFecha);
+            var filas = document.querySelectorAll(".tabla-eventos-contenedor table tr");
+
+            for (var i = 1; i < filas.length; i++) {
+                try {
+                    var fila = filas[i];
+                    var celdaId = fila.getElementsByTagName("td")[0];
+                    var celdaFecha = fila.getElementsByTagName("td")[3];
+                    var textoId = celdaId.textContent || celdaId.innerText;
+                    console.log(textoId);
+                    var textoFecha = celdaFecha.textContent || celdaFecha.innerText;
+                    var fechaEvento = textoFecha.split(",")[0].trim();
+
+                    if ((filtro === "" || textoId.toUpperCase() === filtro) &&
+                        (filtroFecha === "" || fechaEvento === fechaFormateada)) {
+                        fila.style.display = "";
+                    } else {
+                        fila.style.display = "none";
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        }
+
+        function formatoFecha(fecha) {
+            // Formatear la fecha a dd/mm/yyyy
+            var partesFecha = fecha.split("-");
+            return partesFecha[2] + "/" + partesFecha[1] + "/" + partesFecha[0];
+        }
+
+        function limpiarFiltro() {
+            document.getElementById("filtro-id").value = "";
+            document.getElementById("filtro-fecha").value = "";
+            var filas = document.querySelectorAll(".tabla-eventos-contenedor table tr");
+            for (var i = 1; i < filas.length; i++) {
+                filas[i].style.display = "";
+            }
+        }
+    </script>
 </body>
 </html>
